@@ -22,12 +22,15 @@ namespace BethanysPieShopHRM.UI
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            string url = string.Empty;
+
+            url = Configuration.GetValue<string>("urls:api");
             services.AddRazorPages();
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
             
             services.AddScoped<HttpClient>(s =>
             {
-                var client = new HttpClient { BaseAddress = new System.Uri("https://localhost:44340/") }; 
+                var client = new HttpClient { BaseAddress = new System.Uri(url) }; 
                 return client;
             });
 
